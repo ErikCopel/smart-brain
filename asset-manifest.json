@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/smart-brain/static/css/main.1eca6be6.css",
+    "main.js": "/smart-brain/static/js/main.f58293bd.js",
+    "static/js/453.e814a414.chunk.js": "/smart-brain/static/js/453.e814a414.chunk.js",
+    "index.html": "/smart-brain/index.html",
+    "main.1eca6be6.css.map": "/smart-brain/static/css/main.1eca6be6.css.map",
+    "main.f58293bd.js.map": "/smart-brain/static/js/main.f58293bd.js.map",
+    "453.e814a414.chunk.js.map": "/smart-brain/static/js/453.e814a414.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1eca6be6.css",
+    "static/js/main.f58293bd.js"
+  ]
+}
