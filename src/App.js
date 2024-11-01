@@ -15,6 +15,7 @@ class App extends Component {
     this.state = {
       particlesInit: false,
       input: '',
+      imageURL: ''
     };
   }
 
@@ -23,8 +24,7 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    console.log('click');
-    const imageUrl = this.state.input;
+    this.setState({ imageURL: this.state.input });
 
     // Faz a chamada ao backend em vez de diretamente para a API da Clarifai
     fetch("http://localhost:3003/clarifai", {
@@ -32,7 +32,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ imageUrl: imageUrl })
+      body: JSON.stringify({ imageUrl: this.imageUrl })
     })
     .then(response => response.json())
     .then(result => {
@@ -54,6 +54,7 @@ class App extends Component {
   }
 
   render() {
+    const { imageURL } = this.state;
     return (
       <div className="App">
         {this.state.particlesInit && (
@@ -76,7 +77,7 @@ class App extends Component {
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}/>
-        { /*<FaceRecognition/> */}
+        <FaceRecognition imageURL={imageURL}/>
       </div>
     );
   }
