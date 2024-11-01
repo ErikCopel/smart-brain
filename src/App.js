@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Rank from './components/Rank/Rank';
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
@@ -13,7 +14,19 @@ class App extends Component {
     super(props);
     this.state = {
       particlesInit: false,
+      input: "",
+      imageURL: ""
     };
+  }
+
+  onInputChange = (event) => {
+    this.setState({ input: event.target.value });
+    console.log(event.target.value);
+  }
+
+  onButtonSubmit = () => {
+    this.setState({ imageURL: this.state.input });
+    console.log("click");
   }
 
   componentDidMount() {
@@ -44,9 +57,13 @@ class App extends Component {
         )}
         <Navigation />
         <Logo />
-        <ImageLinkForm />
         <Rank />
-        { /*<FaceRecognition/> */}
+        <ImageLinkForm
+          onInputChange={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}
+          />
+        <FaceRecognition 
+          imageURL={this.state.imageURL} />
       </div>
     );
   }
