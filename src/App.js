@@ -15,8 +15,22 @@ class App extends Component {
     this.state = {
       particlesInit: false,
       input: '',
-      imageURL: ''
+      imageURL: '',
+      box: {},
     };
+  }
+
+  calculateFaceLocation = (data) => {
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById('inputImage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height),
+    }
   }
 
   onInputChange = (event) => {
@@ -35,14 +49,16 @@ class App extends Component {
       })
       .then(response => response.json())
       .then(result => {
-        console.log(result);
-        // Processar o resultado da API conforme necessário
-        // Exemplo:
-        // const regions = result.outputs[0].data.regions;
+        this.displayFaceBox(this.calculateFaceLocation(result));
       })
       .catch(error => console.log('error', error));
     });
+  }
 
+  displayFaceBox = (box) => {
+    this.setState({ box: box }, ()=>{
+      console.log(this.state.box);
+    });
   }
 
   componentDidMount() {
@@ -77,7 +93,7 @@ class App extends Component {
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
           onButtonSubmit={this.onButtonSubmit}/>
-        <FaceRecognition imageURL={this.state.imageURL}/>
+        <FaceRecognition box={this.state.box} imageURL={this.state.imageURL}/>
       </div>
     );
   }
