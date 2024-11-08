@@ -66,6 +66,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    fetch("http://localhost:3003/")
+      .then(response => response.json())
+      .then(console.log);
+
     if (!this.state.particlesInit) {
       initParticlesEngine(async (engine) => {
         await loadFull(engine);
