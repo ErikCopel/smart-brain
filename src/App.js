@@ -61,6 +61,7 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
+    const { id } = this.state.user;
     this.setState({ imageURL: this.state.input }, () => {
       // Faz a chamada ao backend em vez de diretamente para a API da Clarifai
       fetch("http://localhost:3003/clarifai", {
@@ -72,6 +73,19 @@ class App extends Component {
       })
         .then(response => response.json())
         .then(result => {
+          if (result) {
+            fetch("http://localhost:3003/image", {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ userId: id})
+            })
+              .then(response => response.json())
+              .then(count => {
+                this.setState(Object.assign(this.state.user, { entries: count }));
+              });
+          }
           this.displayFaceBox(this.calculateFaceLocation(result));
         })
         .catch(error => console.log('error', error));
@@ -85,10 +99,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3003/")
-      .then(response => response.json())
-      .then(console.log);
-
     if (!this.state.particlesInit) {
       initParticlesEngine(async (engine) => {
         await loadFull(engine);
