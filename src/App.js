@@ -19,7 +19,7 @@ class App extends Component {
       input: '',
       imageURL: '',
       box: {},
-      route: 'signin',
+      route: 'signout',
       isSignedIn: false,
       user: {
         id: '',
@@ -100,8 +100,15 @@ class App extends Component {
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState({ isSignedIn: false });
+
     } else if (route === 'home') {
       this.setState({ isSignedIn: true });
+
+    } else if (route === 'register') {
+      this.setState({ isSignedIn: false });
+
+    } else if (route === 'signin') {
+      this.setState({ isSignedIn: false });
     }
     this.setState({ route: route });
   }
@@ -135,7 +142,7 @@ class App extends Component {
             <FaceRecognition box={box} imageURL={imageURL} />
           </div>
           : (
-            route === 'signin'
+            route === 'signout'
               ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
               : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
           )
