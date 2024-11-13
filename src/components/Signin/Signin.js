@@ -18,12 +18,12 @@ class Signin extends React.Component {
     }
 
     onSubmitSignIn = () => {
-        const res = fetch("http://localhost:3003/signin", {
+        fetch("http://localhost:3003/signin", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
+            body: JSON.stringify({ 
                 email: this.state.signInEmail,
                 password: this.state.signInPassword
             })
@@ -34,9 +34,11 @@ class Signin extends React.Component {
                     this.props.loadUser(user);
                     this.props.onRouteChange('home');
                 } else {
+
                     alert('Error signing in');
                 }
-            });
+            })
+            .catch(err => console.log(err));
     }
 
     render() {
