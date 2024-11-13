@@ -24,8 +24,7 @@ class Register extends React.Component {
     }
 
     onSubmitRegister = () => {
-        console.log(this.state);
-        const res = fetch("http://localhost:3003/register", {
+        fetch("http://localhost:3003/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,13 +35,19 @@ class Register extends React.Component {
                 password: this.state.password
             })
         })
-            .then(response => response.json())
-            .then(user => {
-                if (user) {
-                    this.props.loadUser(user);
-                    this.props.onRouteChange('home');
+            .then(response => {
+                if (!response.ok) {
+                    alert('Error registering');
+                    throw new Error('Failed to register');
                 }
-            });
+                return response.json()
+            })
+            .then(user => {
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
+            )
+            .catch(error => console.log('error', error));
     }
 
 
