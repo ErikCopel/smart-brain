@@ -35,16 +35,14 @@ class Register extends React.Component {
                 password: this.state.password
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    alert('Error registering');
-                    throw new Error('Failed to register');
-                }
-                return response.json()
-            })
+            .then(response => response.json())
             .then(user => {
-                this.props.loadUser(user);
-                this.props.onRouteChange('home');
+                if (user.id) {
+                    this.props.loadUser(user);
+                    this.props.onRouteChange('home');
+                } else {
+                    alert('Error registering');
+                }
             }
             )
             .catch(error => console.log('error', error));
