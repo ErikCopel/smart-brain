@@ -1,6 +1,6 @@
 {
   "name": "smart-brain",
-  "homepage": "https://erikcopel.github.io/smart-brain",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
