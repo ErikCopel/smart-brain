@@ -66,7 +66,7 @@ class App extends Component {
     const { id } = this.state.user;
     this.setState({ imageURL: this.state.input }, () => {
       // Faz a chamada ao backend em vez de diretamente para a API da Clarifai
-      fetch("http://localhost:3003/clarifai", {
+      fetch("https://smart-brain-api-cqbr.onrender.com/clarifai", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ class App extends Component {
         .then(response => response.json())
         .then(result => {
           if (result) {
-            fetch("http://localhost:3003/image", {
+            fetch("https://smart-brain-api-cqbr.onrender.com/image", {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'
